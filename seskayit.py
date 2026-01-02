@@ -28,6 +28,7 @@ class SesKayitEdici:
         self.frames = []
         self.p = None
         self.stream = None
+        self.sample_width = pyaudio.PyAudio().get_sample_size(self.FORMAT)
         
         self.setup_ui()
         
@@ -197,7 +198,7 @@ class SesKayitEdici:
                 # WAV dosyası oluştur
                 wf = wave.open(filename, 'wb')
                 wf.setnchannels(self.CHANNELS)
-                wf.setsampwidth(self.p.get_sample_size(self.FORMAT))
+                wf.setsampwidth(self.sample_width)
                 wf.setframerate(self.RATE)
                 wf.writeframes(b''.join(self.frames))
                 wf.close()
